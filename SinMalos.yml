@@ -44,7 +44,7 @@ prototypes:
             que lo ha reportado.
         config:
             source_name: SinMalos-ALL
-            url: https://sinmalos.rediris.es/feeds/SinMalosValues-ALL
+            url: https://sinmalos.rediris.es/feeds/SinMalos-ALL
             age_out:
                 default: null
                 interval: 86400
