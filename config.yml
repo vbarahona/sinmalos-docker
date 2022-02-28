@@ -1,61 +1,64 @@
 nodes:
+  Miner-REYES-CCN-CERT-Inbound:
+    inputs: []
+    output: true
+    prototype: REYES-CCN-CERT.Miner-REYES-CCN-CERT-Inbound
+  Miner-REYES-CCN-CERT-Outbound:
+    inputs: []
+    output: true
+    prototype: REYES-CCN-CERT.Miner-REYES-CCN-CERT-Outbound
+  REYES-CCN-CERT-Inbound:
+    indicator_types:
+    - IPv4
+    inputs:
+    - aggregatorIPv4Generic
+    node_type: output
+    output: false
+    prototype: REYES-CCN-CERT.REYES-CCN-CERT-Inbound
+  REYES-CCN-CERT-Outbound:
+    indicator_types:
+    - IPv4
+    inputs:
+    - aggregatorIPv4Generic
+    node_type: output
+    output: false
+    prototype: REYES-CCN-CERT.REYES-CCN-CERT-Outbound
   SinMalos-ALL:
     inputs: []
     output: true
     prototype: SinMalos.SinMalos-ALL
-  SinMalos-HC:
+  SinMalos-HC-inbound:
+    indicator_types:
+    - IPv4
+    - IPv6
     inputs:
-    - aggregatorIPv4
+    - aggregatorIPv4Generic
+    node_type: output
     output: false
-    prototype: SinMalos.SinMalos-HC
-  SinMalos-MC:
+    prototype: SinMalos.SinMalos-HC-inbound
+  SinMalos-MC-inbound:
+    indicator_types:
+    - IPv4
+    - IPv6
     inputs:
-    - aggregatorIPv4
+    - aggregatorIPv4Generic
+    node_type: output
     output: false
-    prototype: SinMalos.SinMalos-MC
+    prototype: SinMalos.SinMalos-MC-inbound
   SinMalos-MultiSource-HC:
     inputs: []
     output: true
     prototype: SinMalos.SinMalos-MultiSource-HC
-  aggregatorIPv4:
+  aggregatorIPv4Generic:
     inputs:
     - SinMalos-ALL
     - SinMalos-MultiSource-HC
+    - wl-SinMalos-WhiteList-IPv4
+    - Miner-REYES-CCN-CERT-Inbound
+    - Miner-REYES-CCN-CERT-Outbound
     output: true
     prototype: stdlib.aggregatorIPv4Generic
-  dshield_blocklist:
-    output: true
-    prototype: dshield.block
-  inboundaggregator:
-    inputs:
-    - spamhaus_DROP
-    - spamhaus_EDROP
-    - dshield_blocklist
-    - wlWhiteListIPv4
-    output: true
-    prototype: stdlib.aggregatorIPv4Inbound
-  inboundfeedhc:
-    inputs:
-    - inboundaggregator
-    output: false
-    prototype: stdlib.feedHCGreen
-  inboundfeedlc:
-    inputs:
-    - inboundaggregator
-    output: false
-    prototype: stdlib.feedLCGreen
-  inboundfeedmc:
-    inputs:
-    - inboundaggregator
-    output: false
-    prototype: stdlib.feedMCGreen
-  spamhaus_DROP:
-    output: true
-    prototype: spamhaus.DROP
-  spamhaus_EDROP:
-    output: true
-    prototype: spamhaus.EDROP
-  wlWhiteListIPv4:
+  wl-SinMalos-WhiteList-IPv4:
     inputs: []
     output: true
     prototype: stdlib.listIPv4Generic
