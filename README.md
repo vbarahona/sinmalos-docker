@@ -1,2 +1,2 @@
 # sinmalos-docker
-Tunned versión of minemeld for SinMalos proyect
+Tuned minemeld for SinMalos project
