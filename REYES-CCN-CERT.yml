@@ -37,7 +37,7 @@ prototypes:
                 sudden_death: true
             attributes:
                 confidence: 80
-                direction: inbound
+                direction: outbound
                 reyes: true
                 share_level: yellow
                 type: IPv4
