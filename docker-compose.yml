@@ -1,0 +1,18 @@
+version: "3.1"
+services:
+  minemeld-sinmalos:
+    build:
+      context: .
+    container_name: minemeld-sinmalos
+    image: minemeld-sinmalos:latest
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+    restart: always
+    volumes:
+      - minemeld-local:/opt/minemeld/local
+      - minemeld-logs:/opt/minemeld/log
+
+volumes:
+  minemeld-local:
+  minemeld-logs:

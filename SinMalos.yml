@@ -1,0 +1,124 @@
+description: >
+    SinMalos Feeds
+url: https://www.rediris.es/cert/sinmalos
+
+prototypes:
+    SinMalos-MultiSource-HC:
+        author: Víctor Barahona (uam.es)
+        development_status: STABLE
+        node_type: miner
+        indicator_types:
+            - IPv4
+        tags:
+            - SinMalos
+        description: >
+            Feed que contiene todos los IoCs de SinMalos reportados por
+            2 o más instituciones. En los atributos de cada IoC se incluye el
+            identificador de cada institucion que lo ha reportado.
+        config:
+            source_name: SinMalos-MultiSource-HC
+            url: https://sinmalos.rediris.es/feeds/SinMalos-MultiSource-HC
+            age_out:
+                default: null
+                interval: 86400
+                sudden_death: true
+            attributes:
+                type: IPv4
+                direction: inbound
+                share_level: green
+                confidence: 80
+                sinmalos: true
+            interval: 300
+        class: minemeld.ft.mm.JSONSEQMiner
+    SinMalos-ALL:
+        author: Víctor Barahona (uam.es)
+        development_status: STABLE
+        node_type: miner
+        indicator_types:
+            - IPv4
+        tags:
+            - SinMalos
+        description: >
+            Feed que contiene todos los IoCs reportados a SinMalos. En los
+            atributos de cada IoC se incluye el identificador de cada institucion
+            que lo ha reportado.
+        config:
+            source_name: SinMalos-ALL
+            url: https://sinmalos.rediris.es/feeds/SinMalosValues-ALL
+            age_out:
+                default: null
+                interval: 86400
+                sudden_death: true
+            attributes:
+                type: IPv4
+                direction: inbound
+                share_level: green
+                confidence: 60
+                sinmalos: true
+            interval: 300
+        class: minemeld.ft.mm.JSONSEQMiner
+    SinMalos-HC-inbound:
+        author: Víctor Barahona (uam.es)
+        development_status: STABLE
+        node_type: output
+        indicator_types:
+          - IPv4
+          - IPv6
+        tags:
+          - SinMalos
+        description: >
+            EDL SinMalos con alto nivel de confianza (>75), TLP-Green
+            y valores de origen de cada institución
+        class: minemeld.ft.redis.RedisSet
+        config:
+            store_value: true
+            infilters:
+                - actions:
+                      - accept
+                  conditions:
+                      - __method == 'withdraw'
+                  name: accept withdraws
+                - actions:
+                      - accept
+                  conditions:
+                      - confidence > 75
+                      - direction == 'inbound'
+                      - share_level == 'green'
+                      - sinmalos == true
+                  name: accept confidence > 75 and share level green
+                - actions:
+                      - drop
+                  name: drop all
+    SinMalos-MC-inbound:
+        author: Víctor Barahona (uam.es)
+        development_status: STABLE
+        node_type: output
+        indicator_types:
+          - IPv4
+          - IPv6
+        tags:
+          - SinMalos
+        description: >
+            EDL SinMalos con nivel de confianza medio (>50 <75), TLP-Green 
+            y valores de origen de cada institución
+        class: minemeld.ft.redis.RedisSet
+        config:
+            store_value: true
+            infilters:
+                - actions:
+                      - accept
+                  conditions:
+                      - __method == 'withdraw'
+                  name: accept withdraws
+                - actions:
+                      - accept
+                  conditions:
+                      - confidence >= 50
+                      - confidence < 75
+                      - direction == 'inbound'
+                      - share_level == 'green'
+                      - sinmalos == true
+                  name: accept confidence 50-75
+                - actions:
+                      - drop
+                  name: drop all

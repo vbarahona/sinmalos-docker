@@ -1,0 +1,53 @@
+author: minemeld-web
+description: Local prototype library managed via MineMeld WebUI
+prototypes:
+    SinMalos-ALL:
+        class: minemeld.ft.mm.JSONSEQMiner
+        config:
+            age_out:
+                default: null
+                interval: 86400
+                sudden_death: true
+            attributes:
+                confidence: 60
+                direction: inbound
+                share_level: green
+                sinmalos: true
+                type: IPv4
+            interval: 300
+            url: https://sinmalos.rediris.es/feeds/SinMalosValues-ALL
+            verify_cert: false
+        description: Feed que contiene todos los IoCs reportados a SinMalos. En los
+            atributos de cada IoC se incluye el identificador de cada institucion
+            que lo ha reportado.
+        development_status: STABLE
+        indicator_types:
+        - IPv4
+        node_type: miner
+        tags:
+        - SinMalos
+    SinMalosMultiSource-HC:
+        class: minemeld.ft.mm.JSONSEQMiner
+        config:
+            age_out:
+                default: null
+                interval: 86400
+                sudden_death: true
+            attributes:
+                confidence: 75
+                direction: inbound
+                share_level: green
+                sinmalos: true
+                type: IPv4
+            interval: 300
+            url: https://sinmalos.rediris.es/feeds/SinMalos-MultiSource-HC
+            verify_cert: false
+        description: "Feed que contiene todos los IoCs de SinMalos reportados por\
+            \ 2 o m\xE1s instituciones. En los atributos de cada IoC se incluye el\
+            \ identificador de cada institucion que lo ha reportado."
+        development_status: STABLE
+        indicator_types:
+        - IPv4
+        node_type: miner
+        tags:
+        - SinMalos
