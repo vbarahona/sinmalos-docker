@@ -1,18 +1,35 @@
 version: "3.1"
 services:
-  minemeld-sinmalos:
+  sinmalos-mm:
     build:
-      context: .
-    container_name: minemeld-sinmalos
-    image: minemeld-sinmalos:latest
+      context: ./minemeld
+      args:
+        PASS: 'cambiamela'
+    container_name: sinmalos-mm
+    image: sinmalos-mm
     ports:
       - "80:80/tcp"
       - "443:443/tcp"
     restart: always
     volumes:
-      - minemeld-local:/opt/minemeld/local
-      - minemeld-logs:/opt/minemeld/log
+      - SinMalos-MM-local:/opt/minemeld/local
+      - SinMalos-MM-logs:/opt/minemeld/log
+  sinmalos-syslog:
+    build:
+      context: ./syslog-ng
+      args:
+        PASS: 'cambiamela'
+    container_name: sinmalos-syslog
+    image: sinmalos-syslog
+    ports:
+      - "514:514/tcp"
+      - "514:514/udp"
+      - "601:601/tcp"
+    restart: always
+    volumes:
+      - SinMalos-syslog-conf:/etc/syslog-ng
 
 volumes:
-  minemeld-local:
-  minemeld-logs:
+  SinMalos-MM-local:
+  SinMalos-MM-logs:
+  SinMalos-syslog-conf:
