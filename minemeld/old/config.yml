@@ -62,3 +62,18 @@ nodes:
     inputs: []
     output: true
     prototype: stdlib.listIPv4Generic
+  PA2SinMalos:
+    inputs: []
+    output: true
+    prototype: stdlib.localDB
+  PA2SinMalos-aggregator:
+    inputs:
+      - PA2SinMalos
+      - wl-SinMalos-WhiteList-IPv4
+    output: true
+    prototype: stdlib.aggregatorIPv4Generic
+  SinMalos:
+    inputs:
+      - PA2SinMalos-aggregator
+    output: false
+    prototype: stdlib.feedGreenWithValue
