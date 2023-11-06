@@ -1,0 +1,59 @@
+description: >
+    Tenable Scanner Feeds
+url: https://www.tenable.com/
+
+prototypes:
+    Tenable-scanner-ipv4:
+        class: minemeld.ft.json.SimpleJSON
+        config:
+            age_out:
+                default: null
+                interval: 257
+                sudden_death: true
+            attributes:
+                confidence: 100
+                share_level: green
+                type: IPv4
+            extractor: prefixes[?service=='tenable-scanners']
+            fields:
+            - region
+            - service
+            indicator: ip_prefix
+            prefix: tenable
+            source_name: tenable.scanners
+            url: https://docs.tenable.com/ip-ranges/data.json
+        description: all Tenable ranges
+        development_status: STABLE
+        indicator_types:
+        - IPv4
+        node_type: miner
+        tags:
+        - ConfidenceHigh
+        - ShareLevelGreen
+    Tenable-scanner-ipv6:
+        class: minemeld.ft.json.SimpleJSON
+        config:
+            age_out:
+                default: null
+                interval: 257
+                sudden_death: true
+            attributes:
+                confidence: 100
+                share_level: green
+                type: IPv6
+            extractor: ipv6_prefixes[?service=='tenable-scanners']
+            fields:
+            - region
+            - service
+            indicator: ipv6_prefix
+            prefix: tenable
+            source_name: tenable.scanners
+            url: https://docs.tenable.com/ip-ranges/data.json
+        description: all Tenable ranges
+        development_status: STABLE
+        indicator_types:
+        - IPv6
+        node_type: miner
+        tags:
+        - ConfidenceHigh
+        - ShareLevelGreen
