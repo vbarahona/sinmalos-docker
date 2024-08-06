@@ -4,7 +4,8 @@ FROM paloaltonetworks/minemeld as intermediate
 ARG PASS
 
 ## Installation of necessary package/software for this container...
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends apache2-utils \
+RUN sed -i '/panw.io/s/^/# /' /etc/apt/sources.list \
+    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends apache2-utils \
     && apt-get clean \
     && rm -rf /tmp/* /var/tmp/*  \
     && rm -rf /var/lib/apt/lists/*
