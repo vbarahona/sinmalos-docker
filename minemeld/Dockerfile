@@ -1,28 +1,27 @@
-FROM paloaltonetworks/minemeld as intermediate
-
-## Arguments. Modify in docker-compose.yml or as docker argument
-ARG PASS
-
-## Installation of necessary package/software for this container...
-RUN sed -i '/panw.io/s/^/# /' /etc/apt/sources.list \
-    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends apache2-utils \
-    && apt-get clean \
-    && rm -rf /tmp/* /var/tmp/*  \
-    && rm -rf /var/lib/apt/lists/*
-
-## Add User sinmalos
-RUN htpasswd -c -b /usr/share/minemeld/config/api/wsgi.htpasswd sinmalos $PASS
-
-
 FROM paloaltonetworks/minemeld
 
-## For deploy your certificates in the nginx server, copy your certs in the directory and uncomment next lines.
-## Otherwise autosigned certs will be deployed.
-#ADD minemeld.cer /etc/nginx
-#ADD minemeld.pem /etc/nginx
+# Arguments
+ARG CREATE_AUTOSIGNED_SSL_CERTS
 
-## Set htpasswd with new passwd
-COPY --from=intermediate /usr/share/minemeld/config/api/wsgi.htpasswd /opt/minemeld/local/config/api/wsgi.htpasswd
+## SinMalos Logo
+ADD --chown=minemeld:minemeld logo.png /opt/minemeld/www/current/assets/images/logo.png
+RUN sed -i 's/img src=\"assets\/images\/logo.png/img style=\"width:auto; height:130px;\" src=\"assets\/images\/logo.png/g' /opt/minemeld/www/current/scripts/app-8bf84b3a30.js
+
+## Deploy certificates in the nginx server, copy your certs in this Dockerfile directory and .
+COPY minemeld.cer /tmp
+COPY minemeld.pem /tmp
+RUN if [ "$CREATE_AUTOSIGNED_SSL_CERTS" = "true" ]; then \
+    openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+    -keyout /etc/nginx/minemeld.pem \
+    -out /etc/nginx/minemeld.cer \
+    -subj "/C=ES/ST=Spain/L=Spain/O=SinMalos/OU=SinMalos/CN=SinMalos"; \
+    chmod 400 /etc/nginx/minemeld.pem;  \
+    elif [ "$CREATE_AUTOSIGNED_SSL_CERTS" = "false" ]; then \
+    echo "Using custom SSL certs" ; \
+    cp /tmp/minemeld.pem /etc/nginx/minemeld.pem; \
+    cp /tmp/minemeld.cer /etc/nginx/minemeld.cer; \
+    chmod 400 /etc/nginx/minemeld.pem; \
+    fi
 
 ## SinMalos Miners
 ADD --chown=minemeld:minemeld SinMalos.yml /opt/minemeld/prototypes/current
