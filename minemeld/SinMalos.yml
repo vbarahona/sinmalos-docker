@@ -3,7 +3,7 @@ description: >
 url: https://www.rediris.es/cert/sinmalos
 
 prototypes:
-    SinMalos-MultiSource-HC:
+    SinMalos-MultiSource:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
         node_type: miner
@@ -17,7 +17,7 @@ prototypes:
             identificador de cada institucion que lo ha reportado.
         config:
             source_name: SinMalos-MultiSource-HC
-            url: https://sinmalos.rediris.es/feeds/SinMalos-MultiSource-HC
+            url: https://sinmalos.rediris.es/SM-MultiSource-HC
             age_out:
                 default: null
                 interval: 86400
@@ -29,7 +29,7 @@ prototypes:
                 confidence: 80
                 sinmalos: true
             interval: 300
-        class: minemeld.ft.mm.JSONSEQMiner
+        class: minemeld.ft.http.HttpFT
     SinMalos-ALL:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
@@ -39,12 +39,10 @@ prototypes:
         tags:
             - SinMalos
         description: >
-            Feed que contiene todos los IoCs reportados a SinMalos. En los
-            atributos de cada IoC se incluye el identificador de cada institucion
-            que lo ha reportado.
+            Feed que contiene todos los IoCs reportados a SinMalos.
         config:
             source_name: SinMalos-ALL
-            url: https://sinmalos.rediris.es/feeds/SinMalos-ALL
+            url: https://sinmalos.rediris.es/SM-ALL
             age_out:
                 default: null
                 interval: 86400
@@ -55,9 +53,9 @@ prototypes:
                 share_level: green
                 confidence: 60
                 sinmalos: true
-            interval: 300
-        class: minemeld.ft.mm.JSONSEQMiner
-    SinMalos-HC-inbound:
+            interval: 900
+        class: minemeld.ft.http.HttpFT
+    SinMalos-MultiSource-HC:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
         node_type: output
@@ -67,8 +65,8 @@ prototypes:
         tags:
           - SinMalos
         description: >
-            EDL SinMalos con alto nivel de confianza (>75), TLP-Green
-            y valores de origen de cada institución
+            EDL SinMalos con alto nivel de confianza (>75). Indicadores 
+            reportados por 2 o mas instituciones (MultiSource). TLP-Green
         class: minemeld.ft.redis.RedisSet
         config:
             store_value: true
@@ -89,7 +87,7 @@ prototypes:
                 - actions:
                       - drop
                   name: drop all
-    SinMalos-MC-inbound:
+    SinMalos-ALL-MC:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
         node_type: output
@@ -99,7 +97,7 @@ prototypes:
         tags:
           - SinMalos
         description: >
-            EDL SinMalos con nivel de confianza medio (>50 <75), TLP-Green 
+            EDL SinMalos con nivel de confianza medio (>50), TLP-Green 
             y valores de origen de cada institución
         class: minemeld.ft.redis.RedisSet
         config:
@@ -114,11 +112,10 @@ prototypes:
                       - accept
                   conditions:
                       - confidence >= 50
-                      - confidence < 75
                       - direction == 'inbound'
                       - share_level == 'green'
                       - sinmalos == true
-                  name: accept confidence 50-75
+                  name: accept confidence >50
                 - actions:
                       - drop
                   name: drop all

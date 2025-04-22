@@ -18,7 +18,7 @@ prototypes:
                 type: IPv4
             interval: 3600
             source_name: REYES-CCN-CERT-Inbound
-            url: https://sinmalos.rediris.es/feeds/REYES-CCN-CERT-Inbound
+            url: https://sinmalos.rediris.es/REYES-CCN-CERT-Inbound
         description: IoCs de la plataforma de REYES (CCN-CERT) para su filtrado en inbound.
         development_status: STABLE
         indicator_types:
@@ -43,11 +43,35 @@ prototypes:
                 type: IPv4
             interval: 3600
             source_name: REYES-CCN-CERT-Outbound
-            url: https://sinmalos.rediris.es/feeds/REYES-CCN-CERT-Outbound
+            url: https://sinmalos.rediris.es/REYES-CCN-CERT-Outbound
         description: IoCs de la plataforma de REYES (CCN-CERT) para su filtrado en outbound.
         development_status: STABLE
         indicator_types:
         - IPv4
+        node_type: miner
+        tags:
+        - CCN-CERT
+        - REYES
+        - ShareLevelYellow
+    Miner-REYES-CCN-CERT-DOMAINS:
+        class: minemeld.ft.http.HttpFT
+        config:
+            age_out:
+                default: null
+                interval: 300
+                sudden_death: true
+            attributes:
+                confidence: 80
+                reyes: true
+                share_level: yellow
+                type: domain
+            interval: 3600
+            source_name: REYES-CCN-CERT-DOMAINS
+            url: https://sinmalos.rediris.es/REYES-CCN-CERT-DOMAINS
+        description: Lista de IoCs de dominios de la plataforma REYES del CCN-CERT
+        development_status: STABLE
+        indicator_types:
+        - domain
         node_type: miner
         tags:
         - CCN-CERT
@@ -112,31 +136,7 @@ prototypes:
         tags:
             - CCN-CERT
             - REYES
-            - ShareLevelYellow
-    Miner-REYES-CCN-CERT-DOMAINS:
-        class: minemeld.ft.http.HttpFT
-        config:
-            age_out:
-                default: null
-                interval: 300
-                sudden_death: true
-            attributes:
-                confidence: 80
-                reyes: true
-                share_level: yellow
-                type: domain
-            interval: 3600
-            source_name: REYES-CCN-CERT-DOMAINS
-            url: https://sinmalos.rediris.es/feeds/REYES-CCN-CERT-DOMAINS
-        description: Lista de IoCs de dominios de la plataforma REYES del CCN-CERT
-        development_status: STABLE
-        indicator_types:
-        - domain
-        node_type: miner
-        tags:
-        - CCN-CERT
-        - REYES
-        - ShareLevelYellow
+            - ShareLevelYellow  
     REYES-CCN-CERT-DOMAINS:
         class: minemeld.ft.redis.RedisSet
         config:
