@@ -1,12 +1,11 @@
-version: "3.1"
 services:
-  sinmalos-mm:
+  sinmalos-minemeld:
     build:
       context: ./minemeld
       args:
-        PASS: 'cambiamela'
-    container_name: sinmalos-mm
-    image: sinmalos-mm
+        CREATE_AUTOSIGNED_SSL_CERTS: "true"
+    container_name: sinmalos-minemeld
+    image: sinmalos-minemeld
     ports:
       - "80:80/tcp"
       - "443:443/tcp"
@@ -14,22 +13,7 @@ services:
     volumes:
       - SinMalos-MM-local:/opt/minemeld/local
       - SinMalos-MM-logs:/opt/minemeld/log
-  sinmalos-syslog:
-    build:
-      context: ./syslog-ng
-      args:
-        PASS: 'cambiamela'
-    container_name: sinmalos-syslog
-    image: sinmalos-syslog
-    ports:
-      - "514:514/tcp"
-      - "514:514/udp"
-      - "601:601/tcp"
-    restart: always
-    volumes:
-      - SinMalos-syslog-conf:/etc/syslog-ng
 
 volumes:
   SinMalos-MM-local:
   SinMalos-MM-logs:
-  SinMalos-syslog-conf:
