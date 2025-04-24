@@ -9,6 +9,8 @@ sinmalos-docker ofrece a los miembros de la comunidad RedIRIS un conenedor con u
 
 El principal motivo para usar minemeld y no consumir directamente los feeds desde los firewalls es poder gestionar listas blancas sobre los indicadores que ofrece SinMalos.
 
+Si no ya cuentas con un minemeld personalizado y no quieres peder tu configuración puedes echar un ojo a [estas instrucciones](/doc/SinMalos_manual.md) de como realizar el proceso manualmente.
+
 ## Requisitos
 
 Antes de comenzar, asegúrate de tener instalada una versión reciente de [Docker](https://www.docker.com/).
@@ -68,4 +70,3 @@ Tras el procesado, estarán disponibles 4 feeds que ya pueden ser utilizados. Te
 * **SinMalos-ALL** https://localhost/feeds/SM-ALL-MC
 * **REYES-CCN-CERT-Inbound** https://localhost/feeds/REYES-CCN-CERT-Inbound
 * **REYES-CCN-CERT-outbound** https://localhost/feeds/REYES-CCN-CERT-Outbound
-
