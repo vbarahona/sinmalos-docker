@@ -9,7 +9,7 @@ sinmalos-docker ofrece a los miembros de la comunidad RedIRIS un conenedor con u
 
 El principal motivo para usar minemeld y no consumir directamente los feeds desde los firewalls es poder gestionar listas blancas sobre los indicadores que ofrece SinMalos.
 
-Si no ya cuentas con un minemeld personalizado y no quieres peder tu configuración puedes echar un ojo a [estas instrucciones](/doc/SinMalos_manual.md) de como realizar el proceso manualmente.
+Si ya cuentas con un minemeld personalizado y no quieres peder tu configuración puedes echar un ojo a [estas instrucciones](/doc/SinMalos_manual.md) que explican como realizar el proceso de creación de los nuevos miners manualmente.
 
 ## Requisitos
 
