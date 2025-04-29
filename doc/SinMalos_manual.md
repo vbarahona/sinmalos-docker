@@ -41,7 +41,7 @@ age_out:
     interval: 86400
     sudden_death: true
 attributes:
-    confidence: 75
+    confidence: 80
     direction: inbound
     share_level: green
     sinmalos: true
