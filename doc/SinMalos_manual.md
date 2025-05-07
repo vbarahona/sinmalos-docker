@@ -50,7 +50,7 @@ interval: 300
 url: https://sinmalos.rediris.es/SM-MultiSource-HC
 ```
 
-El parametro **confidence** va de 0-100 e indica el nivel de confianza del feed. Como ves en el ejemplo la confianza de SinMalos-Multisource-HC será de 75. En el caso de SinMalos-ALL se recomienda poner una confianza de 50.
+El parametro **confidence** va de 0-100 e indica el nivel de confianza del feed. Como ves en el ejemplo la confianza de SinMalos-Multisource-HC será de 80. En el caso de SinMalos-ALL se recomienda poner una confianza de 50.
 
 Debes cambiar el parámetro **url** en función del prototype que estes creado. Puedes consultar la url de cada feed en [Feeds disponibles](#feeds-disponibles)
 
