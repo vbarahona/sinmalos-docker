@@ -4,16 +4,38 @@ services:
       context: ./minemeld
       args:
         CREATE_AUTOSIGNED_SSL_CERTS: "true"
-    container_name: sinmalos-minemeld
-    image: sinmalos-minemeld
-    ports:
-      - "80:80/tcp"
-      - "443:443/tcp"
+    container_name: soyminero-traefik
+    image: soyminero-minemeld
+    #ports:
+    #  - "80:80/tcp"
+    #  - "443:443/tcp"
     restart: always
     volumes:
       - SinMalos-MM-local:/opt/minemeld/local
       - SinMalos-MM-logs:/opt/minemeld/log
+    labels:
+      - "traefik.enable=true"
+      # Selección de red para Traefik
+      - "traefik.docker.network=soyminero_default"
+      # Router HTTP (web) con redirección a HTTPS
+      - "traefik.http.routers.soyminero-http.rule=Host(`soyminero.ti.uam.es`)"
+      - "traefik.http.routers.soyminero-http.entrypoints=web"
+      - "traefik.http.routers.soyminero-http.middlewares=redirect-to-https@file"
+      # Router HTTPS (websecure)
+      - "traefik.http.routers.soyminero.rule=Host(`soyminero.ti.uam.es`)"
+      - "traefik.http.routers.soyminero.entrypoints=websecure"
+      - "traefik.http.routers.soyminero.tls=true"
+      - "traefik.http.routers.soyminero.service=soyminero-service"
+      # Servicio / load balancer
+      - "traefik.http.services.soyminero-service.loadbalancer.server.port=443"     # puerto interno del contenedor
+      - "traefik.http.services.soyminero-service.loadbalancer.healthcheck.path=/"
+      - "traefik.http.services.soyminero-service.loadbalancer.healthcheck.interval=30s"
+      - "traefik.http.services.soyminero-service.loadbalancer.healthcheck.timeout=3s"
 
 volumes:
   SinMalos-MM-local:
   SinMalos-MM-logs:
+
+networks:
+  soyminero_net:
+    external: true
