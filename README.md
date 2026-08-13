@@ -1,5 +1,6 @@
+# SinMalos-docker
+
 ![Logo de SinMalos](minemeld/logo.png)
-# sinmalos-docker
 
 ## Descripción
 
@@ -27,12 +28,11 @@ Antes de comenzar, asegúrate de tener instalada una versión reciente de [Docke
 2. Configura los certificados SSL
 
     Por defecto el contenedor se instalará con certificados autofirmados. Si esto es válido para ti pasa al siguiente paso.
-    
+
     Si quieres instalar certificados propios debes seguir los siguientes pasos:
 
     * Editar el fichero docker-compose.yml y sustitituir el valor de la variable CREATE_AUTOSIGNED_SSL_CERTS de "true" a "false"
     * Copia tu certificado privado en minemeld.pem y tu certificado publico en minemeld.cer
-
 
 3. Construye los contenedores e inicia los servicios:
 
@@ -64,9 +64,13 @@ Cualquier indicador que añadamos al miner wl-SinMalos-WhiteList-IPv4 será excl
 
 ## Feeds de salida disponibles
 
-Tras el procesado, estarán disponibles 4 feeds que ya pueden ser utilizados. Tenga en cuenta que en la URL debe sustituir "localhost" por el hostname en el que haya desplegado el contenedor.
+Tras el procesado, estarán disponibles 8 feeds que ya pueden ser utilizados. Tenga en cuenta que en la URL debe sustituir "localhost" por el hostname en el que haya desplegado el contenedor.
 
-* **SinMalos-MultiSource-HC** https://localhost/feeds/SM-MultiSource-HC
-* **SinMalos-ALL** https://localhost/feeds/SM-ALL-MC
-* **REYES-CCN-CERT-Inbound** https://localhost/feeds/REYES-CCN-CERT-Inbound
-* **REYES-CCN-CERT-outbound** https://localhost/feeds/REYES-CCN-CERT-Outbound
+* **SinMalos-MultiSource-HC** [https://localhost/feeds/SM-MultiSource-HC]
+* **SinMalos-Lite-HC** [https://localhost/feeds/SM-Lite-HC]
+* **SinMalos-ALL** [https://localhost/feeds/SM-ALL-MC]
+* **SinMalos2-Threats** [https://localhost/feeds/SM2-Threats]
+* **SinMalos2-Scanners** [https://localhost/feeds/SM2-Scanners]
+* **REYES-CCN-CERT-Inbound** [https://localhost/feeds/REYES-CCN-CERT-Inbound]
+* **REYES-CCN-CERT-outbound** [https://localhost/feeds/REYES-CCN-CERT-Outbound]
+* **ELSA-CCN-CERT-Inbount** [https://localhost/feeds/ELSA-CCN-CERT-Inbound]

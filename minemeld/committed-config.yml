@@ -23,6 +23,22 @@ nodes:
     node_type: output
     output: false
     prototype: REYES-CCN-CERT.REYES-CCN-CERT-Outbound
+  SinMalos-Lite-HC:
+    inputs: []
+    output: true
+    prototype: SinMalos.SinMalos-Lite-HC-Miner
+  ELSA-CCN-CERT:
+    inputs: []
+    output: true
+    prototype: SinMalos.ELSA-CCN-CERT
+  SinMalos2-Scanners:
+    inputs: []
+    output: true
+    prototype: SinMalos.SinMalos2-Scanners
+  SinMalos2-Threats:
+    inputs: []
+    output: true
+    prototype: SinMalos.SinMalos2-Threats
   SinMalos-MultiSource:
     inputs: []
     output: true
@@ -31,6 +47,41 @@ nodes:
     inputs: []
     output: true
     prototype: SinMalos.SinMalos-ALL
+  SM-Lite-HC:
+    indicator_types:
+    - IPv4
+    - IPv6
+    inputs:
+    - SinMalos-aggregatorIPv4Generic
+    node_type: output
+    output: false
+    prototype: SinMalos.SinMalos-Lite-HC
+  ELSA-CCN-CERT-Inbound:
+    indicator_types:
+    - IPv4
+    - IPv6
+    inputs:
+    - Reyes-aggregatorIPv4Generic
+    output: false
+    prototype: SinMalos.ELSA-CCN-CERT-Inbound
+  SM2-Scanners:
+    indicator_types:
+    - IPv4
+    - IPv6
+    inputs:
+    - SinMalos-aggregatorIPv4Generic
+    node_type: output
+    output: false
+    prototype: SinMalos.SM2-Scanners
+  SM2-Threats:
+    indicator_types:
+    - IPv4
+    - IPv6
+    inputs:
+    - SinMalos-aggregatorIPv4Generic
+    node_type: output
+    output: false
+    prototype: SinMalos.SM2-Threats
   SM-MultiSource-HC:
     indicator_types:
     - IPv4
@@ -53,12 +104,16 @@ nodes:
     inputs:
     - SinMalos-ALL
     - SinMalos-MultiSource
+    - SinMalos-Lite-HC
+    - SinMalos2-Scanners
+    - SinMalos2-Threats
     - wl-SinMalos-WhiteList-IPv4
     output: true
     prototype: stdlib.aggregatorIPv4Generic
   Reyes-aggregatorIPv4Generic:
     inputs:
     - wl-SinMalos-WhiteList-IPv4
+    - ELSA-CCN-CERT
     - Miner-REYES-CCN-CERT-Inbound
     - Miner-REYES-CCN-CERT-Outbound
     output: true
