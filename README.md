@@ -73,7 +73,7 @@ La configuración incluye una lista blanca que permite excluir IPs o rangos que 
 
 ![Gestion de lista blanca](images/Uso%20de%20lista%20blanca.gif)
 
-Cualquier indicador que añadamos al miner wl-SinMalos-WhiteList-IPv4 será excluido de los feeds de salida.
+Cualquier indicador que añadamos al miner **wl-Global-WhiteList-IPv4** será excluido de los feeds de salida.
 
 ## Feeds de salida disponibles
 
@@ -81,9 +81,9 @@ Tras el procesado, estarán disponibles 8 feeds que ya pueden ser utilizados. Te
 
 * **SinMalos-MultiSource-HC** [https://localhost/feeds/SM-MultiSource-HC](https://localhost/feeds/SM-MultiSource-HC)
 * **SinMalos-Lite-HC** [https://localhost/feeds/SM-Lite-HC](https://localhost/feeds/SM-Lite-HC)
-* **SinMalos-ALL** [https://localhost/feeds/SM-ALL-MC](https://localhost/feeds/SM-ALL-MC)
+* **SinMalos-ALL** [https://localhost/feeds/SM-ALL](https://localhost/feeds/SM-ALL)
 * **SinMalos2-Threats** [https://localhost/feeds/SM2-Threats](https://localhost/feeds/SM2-Threats)
 * **SinMalos2-Scanners** [https://localhost/feeds/SM2-Scanners](https://localhost/feeds/SM2-Scanners)
 * **REYES-CCN-CERT-Inbound** [https://localhost/feeds/REYES-CCN-CERT-Inbound](https://localhost/feeds/REYES-CCN-CERT-Inbound)
-* **REYES-CCN-CERT-outbound** [https://localhost/feeds/REYES-CCN-CERT-Outbound](https://localhost/feeds/REYES-CCN-CERT-Outbound)
-* **ELSA-CCN-CERT-Inbount** [https://localhost/feeds/ELSA-CCN-CERT-Inbound](https://localhost/feeds/ELSA-CCN-CERT-Inbound)
+* **REYES-CCN-CERT-Outbound** [https://localhost/feeds/REYES-CCN-CERT-Outbound](https://localhost/feeds/REYES-CCN-CERT-Outbound)
+* **ELSA-CCN-CERT-Inbound** [https://localhost/feeds/ELSA-CCN-CERT-Inbound](https://localhost/feeds/ELSA-CCN-CERT-Inbound)
