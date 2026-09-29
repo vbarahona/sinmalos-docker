@@ -3,14 +3,14 @@ description: >
 url: https://www.rediris.es/cert/sinmalos
 
 prototypes:
-    SinMalos-Lite-HC-Miner:
+    SinMalos-Lite-HC-PrototypeMiner:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
         node_type: miner
         indicator_types:
             - IPv4
         tags:
-            - SinMalos
+            - SM-Lite-HC
         description: >
             Versión reducida de la lista Multisource con indicadores que han
             sido reportados por 3 o más instituciones.
@@ -29,108 +29,17 @@ prototypes:
                 direction: inbound
                 share_level: green
                 confidence: 90
-                sinmalos: true
-                sinmalos_lite: true
+                sinmalos_lite_hc: true
             interval: 300
         class: minemeld.ft.http.HttpFT
-    ELSA-CCN-CERT:
+    SinMalos-MultiSource-PrototypeMiner:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
         node_type: miner
         indicator_types:
             - IPv4
         tags:
-            - SinMalos
-            - ELSA
-        description: >
-            Lista con las 200 direcciones IP de los escaneadores que
-            pertenecen y son usados por el CCN para escaneos de superficie.
-            Estas IPs no son maliciosas.
-            Recomendada para ser permitida o, en caso de no querer recibir
-            esos escaneos, se puede usar como bloqueo.
-            Se aplica en equipos perimetrales como firewalls en INBOUND.
-        config:
-            source_name: ELSA-CCN-CERT
-            url: https://sinmalos.rediris.es/ELSA-CCN-CERT-Inbound
-            age_out:
-                default: null
-                interval: 86400
-                sudden_death: true
-            attributes:
-                type: IPv4
-                direction: inbound
-                share_level: green
-                confidence: 90
-                sinmalos: true
-                elsa_scanners: true
-            interval: 300
-        class: minemeld.ft.http.HttpFT
-    SinMalos2-Scanners:
-        author: Víctor Barahona (uam.es)
-        development_status: STABLE
-        node_type: miner
-        indicator_types:
-            - IPv4
-        tags:
-            - SinMalos
-        description: >
-            Lista que contiene indicadores de escaneos detectados en
-            firewalls de las instituciones y recogidos por syslog.
-            Recomendada para la mayoría de las instituciones.
-            Se aplica en equipos perimetrales como firewalls en INBOUND.
-        config:
-            source_name: SinMalos2-Scanners
-            url: https://sinmalos.rediris.es/SM2-Scanners
-            age_out:
-                default: null
-                interval: 86400
-                sudden_death: true
-            attributes:
-                type: IPv4
-                direction: inbound
-                share_level: green
-                confidence: 90
-                sinmalos: true
-                sinmalos_scanners: true
-            interval: 300
-        class: minemeld.ft.http.HttpFT
-    SinMalos2-Threats:
-        author: Víctor Barahona (uam.es)
-        development_status: STABLE
-        node_type: miner
-        indicator_types:
-            - IPv4
-        tags:
-            - SinMalos
-        description: >
-            Lista que contiene indicadores de ataques detectados en firewalls
-            de las instituciones y recogidos por syslog.
-            Recomendada para la mayoría de instituciones.
-            Se aplica en equipos perimetrales como firewalls en INBOUND.
-        config:
-            source_name: SinMalos2-Threats
-            url: https://sinmalos.rediris.es/SM2-Threats
-            age_out:
-                default: null
-                interval: 86400
-                sudden_death: true
-            attributes:
-                type: IPv4
-                direction: inbound
-                share_level: green
-                confidence: 90
-                sinmalos: true
-                sinmalos_threats: true
-            interval: 300
-        class: minemeld.ft.http.HttpFT
-    SinMalos-MultiSource:
-        author: Víctor Barahona (uam.es)
-        development_status: STABLE
-        node_type: miner
-        indicator_types:
-            - IPv4
-        tags:
-            - SinMalos
+            - SM-MultiSource-HC
         description: >
             Feed que contiene todos los IoCs de SinMalos reportados por
             2 o más instituciones. En los atributos de cada IoC se incluye el
@@ -147,19 +56,21 @@ prototypes:
                 direction: inbound
                 share_level: green
                 confidence: 80
-                sinmalos: true
+                sinmalos_multisource: true
             interval: 300
         class: minemeld.ft.http.HttpFT
-    SinMalos-ALL:
-        author: Víctor Barahona (uam.es)
+    SinMalos-ALL-PrototypeMiner:
+        author: Victor Barahona (uam.es)
         development_status: STABLE
         node_type: miner
         indicator_types:
             - IPv4
         tags:
-            - SinMalos
+            - SM-ALL
         description: >
             Feed que contiene todos los IoCs reportados a SinMalos.
+            Puede incluir falsos positivos.
+            Recomendada solo para consulta o generar alertas.
         config:
             source_name: SinMalos-ALL
             url: https://sinmalos.rediris.es/SM-ALL
@@ -172,10 +83,66 @@ prototypes:
                 direction: inbound
                 share_level: green
                 confidence: 60
-                sinmalos: true
+                sinmalos_all: true
             interval: 900
         class: minemeld.ft.http.HttpFT
-    SinMalos-Lite-HC:
+    SinMalos2-Scanners-PrototypeMiner:
+        author: Víctor Barahona (uam.es)
+        development_status: STABLE
+        node_type: miner
+        indicator_types:
+            - IPv4
+        tags:
+            - SM2-Scanners
+        description: >
+            Lista que contiene indicadores de escaneos detectados en
+            firewalls de las instituciones y recogidos por syslog.
+            Recomendada para la mayoría de las instituciones.
+            Se aplica en equipos perimetrales como firewalls en INBOUND.
+        config:
+            source_name: SinMalos2-Scanners
+            url: https://sinmalos.rediris.es/SM2-Scanners
+            age_out:
+                default: null
+                interval: 86400
+                sudden_death: true
+            attributes:
+                type: IPv4
+                direction: inbound
+                share_level: green
+                confidence: 70
+                sinmalos2_scanners: true
+            interval: 300
+        class: minemeld.ft.http.HttpFT
+    SinMalos2-Threats-PrototypeMiner:
+        author: Víctor Barahona (uam.es)
+        development_status: STABLE
+        node_type: miner
+        indicator_types:
+            - IPv4
+        tags:
+            - SM2-Threats
+        description: >
+            Lista que contiene indicadores de ataques detectados en firewalls
+            de las instituciones y recogidos por syslog.
+            Recomendada para la mayoría de instituciones.
+            Se aplica en equipos perimetrales como firewalls en INBOUND.
+        config:
+            source_name: SinMalos2-Threats
+            url: https://sinmalos.rediris.es/SM2-Threats
+            age_out:
+                default: null
+                interval: 86400
+                sudden_death: true
+            attributes:
+                type: IPv4
+                direction: inbound
+                share_level: green
+                confidence: 75
+                sinmalos2_threats: true
+            interval: 300
+        class: minemeld.ft.http.HttpFT
+    SinMalos-Lite-HC-PrototypeOutput:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
         node_type: output
@@ -183,7 +150,7 @@ prototypes:
           - IPv4
           - IPv6
         tags:
-          - SinMalos
+          - SM-Lite-HC
         description: >
             Versión reducida de la lista Multisource con indicadores que han
             sido reportados por 3 o más instituciones.
@@ -191,8 +158,8 @@ prototypes:
             no pueden cargar la Multisource o que prefieren una lista más
             reducida y de mayor confianza.
 
-            EDL SinMalos con alto nivel de confianza (>85). Indicadores 
-            reportados por 3 o mas instituciones (MultiSource). TLP-Green
+            EDL SinMalos con alto nivel de confianza. Indicadores 
+            reportados por 3 o mas instituciones (MultiSource).
         class: minemeld.ft.redis.RedisSet
         config:
             store_value: true
@@ -205,16 +172,12 @@ prototypes:
                 - actions:
                       - accept
                   conditions:
-                      - confidence > 85
-                      - direction == 'inbound'
-                      - share_level == 'green'
-                      - sinmalos == true
-                      - sinmalos_lite == true
-                  name: accept confidence > 85 and share level green
+                      - sinmalos_lite_hc == true
+                  name: sinmalos_lite_hc
                 - actions:
                       - drop
                   name: drop all
-    ELSA-CCN-CERT-Inbound:
+    SinMalos-MultiSource-HC-PrototypeOutput:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
         node_type: output
@@ -222,12 +185,10 @@ prototypes:
           - IPv4
           - IPv6
         tags:
-          - SinMalos
-          - ELSA
+          - SM-MultiSource-HC
         description: >
-            EDL ELSA-CCN-CERT-Inbound con nivel de confianza alto.
-            Direcciones IP de escaneadores del CCN que no son maliciosas
-            y se aplican en inbound. TLP-Green.
+            EDL SinMalos con alto nivel de confianza. Indicadores 
+            reportados por 2 o mas instituciones (MultiSource).
         class: minemeld.ft.redis.RedisSet
         config:
             store_value: true
@@ -240,15 +201,12 @@ prototypes:
                 - actions:
                       - accept
                   conditions:
-                      - confidence >= 75
-                      - direction == 'inbound'
-                      - share_level == 'green'
-                      - elsa_scanners == true
-                  name: accept elsa inbound scanners
+                      - sinmalos_multisource == true
+                  name: sinmalos_multisource
                 - actions:
                       - drop
                   name: drop all
-    SM2-Scanners:
+    SinMalos-ALL-PrototypeOutput:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
         node_type: output
@@ -256,11 +214,42 @@ prototypes:
           - IPv4
           - IPv6
         tags:
-          - SinMalos
+          - SM-ALL
         description: >
-            EDL SinMalos2-Scanners con alto nivel de confianza (>85).
+            EDL SinMalos con nivel de confianza medio 
+            y valores de origen de cada institución.
+            Puede incluir falsos positivos.
+            Recomendada solo para consulta o generar alertas.
+        class: minemeld.ft.redis.RedisSet
+        config:
+            store_value: true
+            infilters:
+                - actions:
+                      - accept
+                  conditions:
+                      - __method == 'withdraw'
+                  name: accept withdraws
+                - actions:
+                      - accept
+                  conditions:
+                      - sinmalos_all == true
+                  name: sinmalos_all
+                - actions:
+                      - drop
+                  name: drop all
+    SM2-Scanners-PrototypeOutput:
+        author: Víctor Barahona (uam.es)
+        development_status: STABLE
+        node_type: output
+        indicator_types:
+          - IPv4
+          - IPv6
+        tags:
+          - SM2-Scanners
+        description: >
+            EDL SinMalos2-Scanners con alto nivel de confianza.
             Indicadores de escaneos detectados en firewalls y recogidos
-            por syslog. TLP-Green.
+            por syslog.
         class: minemeld.ft.redis.RedisSet
         config:
             store_value: true
@@ -273,16 +262,12 @@ prototypes:
                 - actions:
                       - accept
                   conditions:
-                      - confidence > 85
-                      - direction == 'inbound'
-                      - share_level == 'green'
-                      - sinmalos == true
-                      - sinmalos_scanners == true
-                  name: accept scanners confidence > 85 and share level green
+                      - sinmalos2_scanners == true
+                  name: sinmalos2_scanners
                 - actions:
                       - drop
                   name: drop all
-    SM2-Threats:
+    SM2-Threats-PrototypeOutput:
         author: Víctor Barahona (uam.es)
         development_status: STABLE
         node_type: output
@@ -290,11 +275,11 @@ prototypes:
           - IPv4
           - IPv6
         tags:
-          - SinMalos
+          - SM2-Threats
         description: >
-            EDL SinMalos2-Threats con alto nivel de confianza (>85).
+            EDL SinMalos2-Threats con alto nivel de confianza.
             Indicadores de ataques detectados en firewalls y recogidos
-            por syslog. TLP-Green.
+            por syslog.
         class: minemeld.ft.redis.RedisSet
         config:
             store_value: true
@@ -307,76 +292,8 @@ prototypes:
                 - actions:
                       - accept
                   conditions:
-                      - confidence > 85
-                      - direction == 'inbound'
-                      - share_level == 'green'
-                      - sinmalos == true
-                      - sinmalos_threats == true
-                  name: accept threats confidence > 85 and share level green
-                - actions:
-                      - drop
-                  name: drop all
-    SinMalos-MultiSource-HC:
-        author: Víctor Barahona (uam.es)
-        development_status: STABLE
-        node_type: output
-        indicator_types:
-          - IPv4
-          - IPv6
-        tags:
-          - SinMalos
-        description: >
-            EDL SinMalos con alto nivel de confianza (>75). Indicadores 
-            reportados por 2 o mas instituciones (MultiSource). TLP-Green
-        class: minemeld.ft.redis.RedisSet
-        config:
-            store_value: true
-            infilters:
-                - actions:
-                      - accept
-                  conditions:
-                      - __method == 'withdraw'
-                  name: accept withdraws
-                - actions:
-                      - accept
-                  conditions:
-                      - confidence > 75
-                      - direction == 'inbound'
-                      - share_level == 'green'
-                      - sinmalos == true
-                  name: accept confidence > 75 and share level green
-                - actions:
-                      - drop
-                  name: drop all
-    SinMalos-ALL-MC:
-        author: Víctor Barahona (uam.es)
-        development_status: STABLE
-        node_type: output
-        indicator_types:
-          - IPv4
-          - IPv6
-        tags:
-          - SinMalos
-        description: >
-            EDL SinMalos con nivel de confianza medio (>50), TLP-Green 
-            y valores de origen de cada institución
-        class: minemeld.ft.redis.RedisSet
-        config:
-            store_value: true
-            infilters:
-                - actions:
-                      - accept
-                  conditions:
-                      - __method == 'withdraw'
-                  name: accept withdraws
-                - actions:
-                      - accept
-                  conditions:
-                      - confidence >= 50
-                      - direction == 'inbound'
-                      - share_level == 'green'
-                      - sinmalos == true
-                  name: accept confidence >50
+                      - sinmalos2_threats == true
+                  name: sinmalos2_threats
                 - actions:
                       - drop
                   name: drop all

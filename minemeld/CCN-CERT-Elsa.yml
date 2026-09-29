@@ -1,0 +1,65 @@
+description: >
+    CCN-CERT Elsa Scanners
+url: https://www.ccn-cert.cni.es/es/soluciones-seguridad/elsa.html
+
+prototypes:
+    ELSA-CCN-CERT-PrototypeMiner:
+        author: Víctor Barahona (uam.es)
+        development_status: STABLE
+        node_type: miner
+        indicator_types:
+            - IPv4
+        tags:
+            - ELSA-CCN-CERT-Inbound
+        description: >
+            Lista con las 200 direcciones IP de los escaneadores que
+            pertenecen y son usados por el CCN para escaneos de superficie.
+            Estas IPs no son maliciosas.
+            Recomendada para ser permitida o, en caso de no querer recibir
+            esos escaneos, se puede usar como bloqueo.
+            Se aplica en equipos perimetrales como firewalls en INBOUND.
+        config:
+            source_name: ELSA-CCN-CERT
+            url: https://sinmalos.rediris.es/ELSA-CCN-CERT-Inbound
+            age_out:
+                default: null
+                interval: 86400
+                sudden_death: true
+            attributes:
+                type: IPv4
+                direction: inbound
+                share_level: green
+                confidence: 90
+                ccn_elsa: true
+            interval: 86400
+        class: minemeld.ft.http.HttpFT
+    ELSA-CCN-CERT-Inbound-PrototypeOutput:
+        author: Víctor Barahona (uam.es)
+        development_status: STABLE
+        node_type: output
+        indicator_types:
+          - IPv4
+          - IPv6
+        tags:
+          - ELSA-CCN-CERT-Inbound
+        description: >
+            EDL ELSA-CCN-CERT-Inbound con nivel de confianza alto.
+            Direcciones IP de escaneadores del CCN que no son maliciosas
+            y se aplican en inbound. TLP-Green.
+        class: minemeld.ft.redis.RedisSet
+        config:
+            store_value: true
+            infilters:
+                - actions:
+                      - accept
+                  conditions:
+                      - __method == 'withdraw'
+                  name: accept withdraws
+                - actions:
+                      - accept
+                  conditions:
+                      - ccn_elsa == true
+                  name: accept elsa inbound scanners
+                - actions:
+                      - drop
+                  name: drop all

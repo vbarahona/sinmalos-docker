@@ -1,124 +1,153 @@
 nodes:
-  Miner-REYES-CCN-CERT-Inbound:
+  REYES-CCN-CERT-Inbound-Miner:
     inputs: []
     output: true
-    prototype: REYES-CCN-CERT.Miner-REYES-CCN-CERT-Inbound
-  Miner-REYES-CCN-CERT-Outbound:
+    prototype: CCN-CERT-Reyes.REYES-CCN-CERT-Inbound-PrototypeMiner
+  REYES-CCN-CERT-Outbound-Miner:
     inputs: []
     output: true
-    prototype: REYES-CCN-CERT.Miner-REYES-CCN-CERT-Outbound
+    prototype: CCN-CERT-Reyes.REYES-CCN-CERT-Outbound-PrototypeMiner
+  ELSA-CCN-CERT-Miner:
+    inputs: []
+    output: true
+    prototype: CCN-CERT-Elsa.ELSA-CCN-CERT-PrototypeMiner
+  SinMalos-Lite-HC-Miner:
+    inputs: []
+    output: true
+    prototype: SinMalos.SinMalos-Lite-HC-PrototypeMiner
+  SinMalos-MultiSource-Miner:
+    inputs: []
+    output: true
+    prototype: SinMalos.SinMalos-MultiSource-PrototypeMiner
+  SinMalos-ALL-Miner:
+    inputs: []
+    output: true
+    prototype: SinMalos.SinMalos-ALL-PrototypeMiner
+  SinMalos2-Scanners-Miner:
+    inputs: []
+    output: true
+    prototype: SinMalos.SinMalos2-Scanners-PrototypeMiner
+  SinMalos2-Threats-Miner:
+    inputs: []
+    output: true
+    prototype: SinMalos.SinMalos2-Threats-PrototypeMiner
   REYES-CCN-CERT-Inbound:
     indicator_types:
     - IPv4
     inputs:
-    - Reyes-aggregatorIPv4Generic
+    - REYES-CCN-CERT-Inbound-Aggregator
     node_type: output
     output: false
-    prototype: REYES-CCN-CERT.REYES-CCN-CERT-Inbound
+    prototype: CCN-CERT-Reyes.REYES-CCN-CERT-Inbound-PrototypeOutput
   REYES-CCN-CERT-Outbound:
     indicator_types:
     - IPv4
     inputs:
-    - Reyes-aggregatorIPv4Generic
+    - REYES-CCN-CERT-Outbound-Aggregator
     node_type: output
     output: false
-    prototype: REYES-CCN-CERT.REYES-CCN-CERT-Outbound
-  SinMalos-Lite-HC:
-    inputs: []
-    output: true
-    prototype: SinMalos.SinMalos-Lite-HC-Miner
-  ELSA-CCN-CERT:
-    inputs: []
-    output: true
-    prototype: SinMalos.ELSA-CCN-CERT
-  SinMalos2-Scanners:
-    inputs: []
-    output: true
-    prototype: SinMalos.SinMalos2-Scanners
-  SinMalos2-Threats:
-    inputs: []
-    output: true
-    prototype: SinMalos.SinMalos2-Threats
-  SinMalos-MultiSource:
-    inputs: []
-    output: true
-    prototype: SinMalos.SinMalos-MultiSource
-  SinMalos-ALL:
-    inputs: []
-    output: true
-    prototype: SinMalos.SinMalos-ALL
-  SM-Lite-HC:
-    indicator_types:
-    - IPv4
-    - IPv6
-    inputs:
-    - SinMalos-aggregatorIPv4Generic
-    node_type: output
-    output: false
-    prototype: SinMalos.SinMalos-Lite-HC
+    prototype: CCN-CERT-Reyes.REYES-CCN-CERT-Outbound-PrototypeOutput
   ELSA-CCN-CERT-Inbound:
     indicator_types:
     - IPv4
     - IPv6
     inputs:
-    - Reyes-aggregatorIPv4Generic
+    - ELSA-CCN-CERT-Miner-Aggregator
     output: false
-    prototype: SinMalos.ELSA-CCN-CERT-Inbound
-  SM2-Scanners:
+    prototype: CCN-CERT-Elsa.ELSA-CCN-CERT-Inbound-PrototypeOutput
+  SM-Lite-HC:
     indicator_types:
     - IPv4
     - IPv6
     inputs:
-    - SinMalos-aggregatorIPv4Generic
+    - SinMalos-Lite-HC-Miner-Aggregator
     node_type: output
     output: false
-    prototype: SinMalos.SM2-Scanners
-  SM2-Threats:
-    indicator_types:
-    - IPv4
-    - IPv6
-    inputs:
-    - SinMalos-aggregatorIPv4Generic
-    node_type: output
-    output: false
-    prototype: SinMalos.SM2-Threats
+    prototype: SinMalos.SinMalos-Lite-HC-PrototypeOutput
   SM-MultiSource-HC:
     indicator_types:
     - IPv4
     - IPv6
     inputs:
-    - SinMalos-aggregatorIPv4Generic
+    - SinMalos-MultiSource-Miner-Aggregator
     node_type: output
     output: false
-    prototype: SinMalos.SinMalos-MultiSource-HC
-  SM-ALL-MC:
+    prototype: SinMalos.SinMalos-MultiSource-HC-PrototypeOutput
+  SM-ALL:
     indicator_types:
     - IPv4
     - IPv6
     inputs:
-    - SinMalos-aggregatorIPv4Generic
+    - SinMalos-ALL-Miner-Aggregator
     node_type: output
     output: false
-    prototype: SinMalos.SinMalos-ALL-MC
-  SinMalos-aggregatorIPv4Generic:
+    prototype: SinMalos.SinMalos-ALL-PrototypeOutput
+  SM2-Scanners:
+    indicator_types:
+    - IPv4
+    - IPv6
     inputs:
-    - SinMalos-ALL
-    - SinMalos-MultiSource
-    - SinMalos-Lite-HC
-    - SinMalos2-Scanners
-    - SinMalos2-Threats
-    - wl-SinMalos-WhiteList-IPv4
+    - SinMalos2-Scanners-Miner-Aggregator
+    node_type: output
+    output: false
+    prototype: SinMalos.SM2-Scanners-PrototypeOutput
+  SM2-Threats:
+    indicator_types:
+    - IPv4
+    - IPv6
+    inputs:
+    - SinMalos2-Threats-Miner-Aggregator
+    node_type: output
+    output: false
+    prototype: SinMalos.SM2-Threats-PrototypeOutput
+  REYES-CCN-CERT-Inbound-Aggregator:
+    inputs:
+    - REYES-CCN-CERT-Inbound-Miner
+    - wl-Global-WhiteList-IPv4
     output: true
     prototype: stdlib.aggregatorIPv4Generic
-  Reyes-aggregatorIPv4Generic:
+  REYES-CCN-CERT-Outbound-Aggregator:
     inputs:
-    - wl-SinMalos-WhiteList-IPv4
-    - ELSA-CCN-CERT
-    - Miner-REYES-CCN-CERT-Inbound
-    - Miner-REYES-CCN-CERT-Outbound
+    - REYES-CCN-CERT-Outbound-Miner
+    - wl-Global-WhiteList-IPv4
     output: true
     prototype: stdlib.aggregatorIPv4Generic
-  wl-SinMalos-WhiteList-IPv4:
+  ELSA-CCN-CERT-Miner-Aggregator:
+    inputs:
+    - ELSA-CCN-CERT-Miner
+    output: true
+    prototype: stdlib.aggregatorIPv4Generic
+  SinMalos-Lite-HC-Miner-Aggregator:
+    inputs:
+    - SinMalos-Lite-HC-Miner
+    - wl-Global-WhiteList-IPv4
+    output: true
+    prototype: stdlib.aggregatorIPv4Generic
+  SinMalos-MultiSource-Miner-Aggregator:
+    inputs:
+    - SinMalos-MultiSource-Miner
+    - wl-Global-WhiteList-IPv4
+    output: true
+    prototype: stdlib.aggregatorIPv4Generic
+  SinMalos-ALL-Miner-Aggregator:
+    inputs:
+    - SinMalos-ALL-Miner
+    - wl-Global-WhiteList-IPv4
+    output: true
+    prototype: stdlib.aggregatorIPv4Generic
+  SinMalos2-Scanners-Miner-Aggregator:
+    inputs:
+    - SinMalos2-Scanners-Miner
+    - wl-Global-WhiteList-IPv4
+    output: true
+    prototype: stdlib.aggregatorIPv4Generic
+  SinMalos2-Threats-Miner-Aggregator:
+    inputs:
+    - SinMalos2-Threats-Miner
+    - wl-Global-WhiteList-IPv4
+    output: true
+    prototype: stdlib.aggregatorIPv4Generic
+  wl-Global-WhiteList-IPv4:
     inputs: []
     output: true
     prototype: stdlib.listIPv4Generic
