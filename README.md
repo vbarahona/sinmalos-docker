@@ -25,7 +25,7 @@ Antes de comenzar, asegúrate de tener instalada una versión reciente de [Docke
     cd sinmalos-docker
     ```
 
-2. Configura los certificados SSL
+2. Configura los certificados SSL (Opcional)
 
     Por defecto el contenedor se instalará con certificados autofirmados. Si esto es válido para ti pasa al siguiente paso.
 
@@ -34,7 +34,20 @@ Antes de comenzar, asegúrate de tener instalada una versión reciente de [Docke
     * Editar el fichero docker-compose.yml y sustitituir el valor de la variable CREATE_AUTOSIGNED_SSL_CERTS de "true" a "false"
     * Copia tu certificado privado en minemeld.pem y tu certificado publico en minemeld.cer
 
-3. Construye los contenedores e inicia los servicios:
+3. Configura las conexiones a traves de proxy (Opcional)
+
+    MineMeld permite configurar un proxy para las conexiones necesarias, como la descarga de feeds.
+
+    Si os hemos autorizado la IP de salida de vuestro proxy para acceder a nuestros feeds, tendréis que configurar MineMeld utilizando esa IP.
+
+   * Editar el fichero docker-compose.yml y añadir una nueva sección (igual que la de volumes) debajo de _"- SinMalos-MM-logs:/opt/minemeld/log"_ con lo siguiente:
+    ```bash
+        environment:
+          - HTTP_PROXY=http://X.X.X.X:XXXXX
+          - HTTPS_PROXY=http://X.X.X.X:XXXXX
+    ```
+   
+5. Construye los contenedores e inicia los servicios:
 
     ```bash
     docker compose up --build -d
