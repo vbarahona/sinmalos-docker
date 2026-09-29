@@ -25,7 +25,10 @@ RUN if [ "$CREATE_AUTOSIGNED_SSL_CERTS" = "true" ]; then \
 
 ## SinMalos Miners
 ADD --chown=minemeld:minemeld SinMalos.yml /opt/minemeld/prototypes/current
-ADD --chown=minemeld:minemeld REYES-CCN-CERT.yml /opt/minemeld/prototypes/current
+## CCN Reyes Miners
+ADD --chown=minemeld:minemeld CCN-CERT-Reyes.yml /opt/minemeld/prototypes/current
+## CCN Elsa Scanners
+ADD --chown=minemeld:minemeld CCN-CERT-Elsa.yml /opt/minemeld/prototypes/current
 
 ## SinMalos Config
 ADD --chown=minemeld:minemeld committed-config.yml /usr/share/minemeld/config
