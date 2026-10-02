@@ -12,8 +12,14 @@ En esta página encontrarás información y ayuda sobre tareas de configuración
 Los feeds están disponibles solo para los miembros de la comunidad RedIRIS. Si eres de la comunidad y aun no tienes acceso visita la página del [Servicio SinMalos](https://www.rediris.es/cert/sinmalos/) para solicitarlo.
 
 * **SinMalos-MultiSource-HC:** este feed es **el más interesante y el recomendado** para usar en el filtrado automatico en los firewalls. Se compone de los IoC que han sido reportados por 2 o más instituciones y tienen un nivel de confianza alto (HC - High Confidence). Recomendado para filtrar solo en Inbound. https://sinmalos.rediris.es/SM-MultiSource-HC
+  
+* **SM-Lite-HC:** versión reducida del feed SM-Multisource-HC con indicadores que han sido reportados por 3 o más instituciones. Esa lista es recomendada para firewalls con menos capacidad y para filtrar solo inbound. https://sinmalos.rediris.es/SM-Lite-HC 
 
 * **SinMalos-ALL:** este feed agrupa todos los IoC que están siendo reportados por al menos una institución. Su nivel de confianza es medio (MC - Medium Confidence). Al tener menor confianza y sobretodo debido a su gran tamaño no es recomendable para su uso directo en los firewalls. Puede ser usada como referencia de lista de reputación en SIEMs u otras herramientas.  https://sinmalos.rediris.es/SM-ALL
+
+* **SM2-Scanners:** este feed contiene indicadores de escaneos detectados en firewalls de las instituciones y recogidos por syslog. Recomendado para filtrar solo en Inbound. https://sinmalos.rediris.es/SM2-Scanners
+
+* **SM2-Threats:** este feed contiene indicadores de ataques detectados en firewalls de las instituciones y recogidos por syslog. Recomendado para filtrar solo en Inbound. https://sinmalos.rediris.es/SM2-Threats
 
 * **REYES-CCN-CERT-Inbound:** este feed agrupa los IoCs del feed SPAM-REYES-CCN-CERT del servicio REYES del CCN. Tiene un nivel de confianza alto. Recomendado para filtrar solo en Inbound. https://sinmalos.rediris.es/REYES-CCN-CERT-Inbound
 
